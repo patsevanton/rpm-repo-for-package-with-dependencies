@@ -26,6 +26,6 @@ mkdir -p %{buildroot}/var/www/repo-package-with-dependencies
 
 %files
 %{_bindir}/%{name}
-/etc/nginx/conf.d/repo-nginx-package-with-dependencies.conf
+/etc/nginx/conf.d/nginx-repo-package-with-dependencies.conf
 /etc/repo-package-with-dependencies.conf
 %dir /var/www/repo-package-with-dependencies
