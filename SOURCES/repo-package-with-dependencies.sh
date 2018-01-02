@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source /etc/rpm-repo-package-with-dependencies.conf
+source /etc/repo-package-with-dependencies.conf
 
 if [ ! -d $REPOS_ROOT ];
 then
