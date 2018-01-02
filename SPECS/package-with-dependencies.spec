@@ -11,6 +11,7 @@ Source1: nginx-repo-package-with-dependencies.conf
 Source2: repo-package-with-dependencies.conf
 Requires: nginx
 Requires: createrepo
+Requires: yum-utils
 
 %description
 
