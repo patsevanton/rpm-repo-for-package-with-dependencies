@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 
 source /etc/repo-package-with-dependencies.conf
 
@@ -14,25 +14,26 @@ then
     exit 1
 fi
 
-if yum list "$PACKAGES" | grep 'Error: No matching'; then
-        echo "$PACKAGES" in repo
-    else
-        echo Error: No matching "$PACKAGES" to list
-        echo check: yum list "$PACKAGES"
-        exit 1
+if yum list "$PACKAGES" | grep 'Error: No matching';
+then
+    echo "$PACKAGES" in repo
+else
+    echo Error: No matching "$PACKAGES" to list
+    echo check: yum list "$PACKAGES"       
+    exit 1
 fi
 
-if repoclosure --pkg="$PACKAGES" | grep -q 'unresolved'; then
-      echo unresolved dependencies "$PACKAGES"
-      echo check: repoclosure --pkg="$PACKAGES"
-      exit 1
+if repoclosure --pkg="$PACKAGES" | grep -q 'unresolved';
+then
+    echo unresolved dependencies "$PACKAGES"
+    echo check: repoclosure --pkg="$PACKAGES"
+    exit 1
 fi
 
 declare -a deps=( $(sort <(sed -e 's/ [| \\\_]\+\|-[[:digit:]]\+..*\|[[:digit:]]\://g' <(repoquery --tree-requires $PACKAGES )) | uniq) )
 
 for i in "${deps[@]}"
 do
-
     repo=$(repoquery -ai "$i" | grep 'Repository  : ' | cut -d ":" -f 2 | cut -d " " -f 2 | uniq)
     echo "$i"
     yumdownloader "$i" --destdir "$REPOS_ROOT$repo"
