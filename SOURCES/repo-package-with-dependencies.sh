@@ -1,6 +1,8 @@
-#!/bin/bash -x
+#!/bin/bash
 
-source /etc/repo-package-with-dependencies.conf
+source /etc/repo-package-with-dependencies/repo.conf
+
+PACKAGES=`awk 'BEGIN { ORS = " " } { print }' /etc/repo-package-with-dependencies/package-list.conf`
 
 yum makecache
 
