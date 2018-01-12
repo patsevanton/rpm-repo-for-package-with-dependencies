@@ -16,13 +16,13 @@ then
     exit 1
 fi
 
-if yum list "$PACKAGES" | grep 'Error: No matching';
+if rpm -qa | grep -q "$PACKAGES";
 then
-    echo Error: No matching "$PACKAGES" to list
-    echo check: yum list "$PACKAGES"
-    exit 1
+    echo ok
 else
-    echo "$PACKAGES" in repo
+    echo Error: No matching "$PACKAGES" to list
+    echo "rpm -qa | grep -q $PACKAGES"
+    exit 1
 fi
 
 if repoclosure --pkg="$PACKAGES" | grep -q 'unresolved';
