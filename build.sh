@@ -10,5 +10,9 @@ do
     fi
 done
 
+rm -f *.rpm
+
 spectool -g -R SPECS/repo-package-with-dependencies.spec
 rpmbuild -bb --define "_topdir $PWD" SPECS/repo-package-with-dependencies.spec
+mv ./RPMS/x86_64/*.rpm .
+./clean.sh
