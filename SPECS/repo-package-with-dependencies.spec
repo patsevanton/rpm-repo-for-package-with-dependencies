@@ -1,7 +1,7 @@
 %global _prefix /usr/local
 
 Name:    repo-package-with-dependencies
-Version: 1.0
+Version: 1.1
 Release: 1
 Summary: RPM repo for package with dependencies
 Group:   Development Tools
@@ -15,6 +15,10 @@ Requires: createrepo
 Requires: yum-utils
 
 %description
+RPM repo for package with dependencies
+
+%pre
+rm -f /etc/nginx/conf.d/default.conf
 
 %install
 rm -rf $RPM_BUILD_ROOT
