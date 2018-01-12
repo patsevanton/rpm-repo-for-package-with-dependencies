@@ -1,14 +1,14 @@
 %global _prefix /usr/local
 
 Name:    repo-package-with-dependencies
-Version: 0.8
+Version: 0.9
 Release: 1
 Summary: RPM repo for package with dependencies
 Group:   Development Tools
 License: ASL 2.0
 Source0: repo-package-with-dependencies.sh
 Source1: nginx-repo-package-with-dependencies.conf
-Source2: repo-list.conf
+Source2: package-list.conf
 Source3: repo.conf
 Requires: nginx
 Requires: createrepo
