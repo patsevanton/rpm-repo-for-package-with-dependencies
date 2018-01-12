@@ -2,6 +2,8 @@
 
 source /etc/repo-package-with-dependencies.conf
 
+yum makecache
+
 if [ ! -d $REPOS_ROOT ];
 then
     echo "$REPOS_ROOT directory doesn't exists"
@@ -19,7 +21,7 @@ then
     echo "$PACKAGES" in repo
 else
     echo Error: No matching "$PACKAGES" to list
-    echo check: yum list "$PACKAGES"       
+    echo check: yum list "$PACKAGES"
     exit 1
 fi
 
