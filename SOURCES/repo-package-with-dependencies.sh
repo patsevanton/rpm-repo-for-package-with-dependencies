@@ -18,11 +18,11 @@ fi
 
 if yum list "$PACKAGES" | grep 'Error: No matching';
 then
-    echo "$PACKAGES" in repo
-else
     echo Error: No matching "$PACKAGES" to list
     echo check: yum list "$PACKAGES"
     exit 1
+else
+    echo "$PACKAGES" in repo
 fi
 
 if repoclosure --pkg="$PACKAGES" | grep -q 'unresolved';
