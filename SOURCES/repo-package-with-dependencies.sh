@@ -14,11 +14,8 @@ then
     exit 1
 fi
 
-if  yum --assumeno install "$PACKAGES"; then
-    echo yum --assumeno install PACKAGES returned true
-else
-    echo yum --assumeno install PACKAGES retur returned some error
-    exit 1
+if repoclosure --pkg="$PACKAGES" | grep 'unresolved'; then
+  exit 1
 fi
 
 declare -a deps=( $(sort <(sed -e 's/ [| \\\_]\+\|-[[:digit:]]\+..*\|[[:digit:]]\://g' <(repoquery --tree-requires $PACKAGES )) | uniq) )
