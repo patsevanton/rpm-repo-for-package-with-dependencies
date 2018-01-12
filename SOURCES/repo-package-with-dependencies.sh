@@ -14,8 +14,16 @@ then
     exit 1
 fi
 
-if repoclosure --pkg="$PACKAGES" | grep 'unresolved'; then
-  exit 1
+if yum list "$PACKAGES" | grep -q 'No matching Packages'; then
+      echo Error: No matching "$PACKAGES" to list
+      echo check: yum list "$PACKAGES"
+      exit 1
+fi
+
+if repoclosure --pkg="$PACKAGES" | grep -q 'unresolved'; then
+      echo unresolved dependencies "$PACKAGES"
+      echo check: repoclosure --pkg="$PACKAGES"
+      exit 1
 fi
 
 declare -a deps=( $(sort <(sed -e 's/ [| \\\_]\+\|-[[:digit:]]\+..*\|[[:digit:]]\://g' <(repoquery --tree-requires $PACKAGES )) | uniq) )
