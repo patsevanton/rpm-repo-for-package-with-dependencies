@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 source /etc/repo-package-with-dependencies.conf
 
@@ -16,14 +16,18 @@ then
     exit 1
 fi
 
-if rpm -qa | grep -q "$PACKAGES";
+declare -a package=($PACKAGES)
+
+for i in "${package[@]}"
+do
+if yum list available "$i";
 then
-    echo ok
+    echo "$i" available
 else
-    echo Error: No matching "$PACKAGES" to list
-    echo "rpm -qa | grep -q $PACKAGES"
+    echo Error: No matching "$i" to list
     exit 1
 fi
+done
 
 if repoclosure --pkg="$PACKAGES" | grep -q 'unresolved';
 then
@@ -39,7 +43,6 @@ do
     repo=$(repoquery -ai "$i" | grep 'Repository  : ' | cut -d ":" -f 2 | cut -d " " -f 2 | uniq)
     echo "$i"
     yumdownloader "$i" --destdir "$REPOS_ROOT$repo"
-
 done
 
 for dir in `ls $REPOS_ROOT`;
