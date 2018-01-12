@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 source /etc/repo-package-with-dependencies.conf
 
@@ -14,10 +14,12 @@ then
     exit 1
 fi
 
-if yum list "$PACKAGES" | grep -q 'No matching Packages'; then
-      echo Error: No matching "$PACKAGES" to list
-      echo check: yum list "$PACKAGES"
-      exit 1
+if yum list "$PACKAGES" | grep 'Error: No matching'; then
+        echo "$PACKAGES" in repo
+    else
+        echo Error: No matching "$PACKAGES" to list
+        echo check: yum list "$PACKAGES"
+        exit 1
 fi
 
 if repoclosure --pkg="$PACKAGES" | grep -q 'unresolved'; then
