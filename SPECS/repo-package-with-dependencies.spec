@@ -1,7 +1,7 @@
 %global _prefix /usr/local
 
 Name:    repo-package-with-dependencies
-Version: 1.1
+Version: 1.2
 Release: 1
 Summary: RPM repo for package with dependencies
 Group:   Development Tools

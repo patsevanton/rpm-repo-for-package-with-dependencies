@@ -22,9 +22,9 @@ declare -a package=($PACKAGES)
 
 for i in "${package[@]}"
 do
-if yum list available "$i";
+if yum list available "$i" ||  yum list installed "$i";
 then
-    echo "$i" available
+    echo "$i" available or installed
 else
     echo Error: No matching "$i" to list
     exit 1
